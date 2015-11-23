@@ -1,0 +1,18 @@
+{
+  "name": "bracket",
+  "version": "1.0.0",
+  "description": "Tournament Bracket Creator",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mike Cavataio",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "jwt-simple": "^0.3.1",
+    "morgan": "^1.6.1",
+    "sequelize": "^3.14.0"
+  }
+}
