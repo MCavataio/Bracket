@@ -22,20 +22,20 @@ db.authenticate()
   })
   .done();
 
-var User = db.define('users', {
+var User = db.define('user', {
   username: Sequelize.STRING
 });
 
-var Participant = db.define('participants', {
-  name: Sequelize.STRING
+var Participant = db.define('participant', {
+  name: Sequelize.STRING,
 })
 
-var Bracket = db.define('brackets', {
+var Bracket = db.define('bracket', {
   title: Sequelize.STRING
 
 })
 
-var Game = db.define('games', {
+var Game = db.define('game', {
   round: Sequelize.INTEGER,
   particpant1: Sequelize.INTEGER,
   participant2: Sequelize.INTEGER,
@@ -45,35 +45,43 @@ var Game = db.define('games', {
 
 Bracket.belongsTo(User, {foreignKey: 'userId'});
 User.hasMany(Bracket, {foreignKey: 'userId'});
-Bracket.hasMany(Participant, {as: 'players'});
+Bracket.hasMany(Participant, {foreignKey: "bracketId"})
 Participant.belongsTo(Bracket, {foreignKey: 'bracketId'})
-Game.belongsTo(Bracket, {through: 'gameID'})
+Game.belongsTo(Bracket, {through: 'gameId'})
 
 
-// db.sync({force: true})
-//   .then(function(err) {
-//     console.log("Sync Worked!");
-//   }, function (err) {
-//     console.log('An error occurred while creating the table:', err);
-//   });
+db.sync({})
+  .then(function(err) {
+    console.log('created database')
+  }, function (err) {
+    console.log("An error occurred while creating the table:", err)
+  })
 
-var plm = Bracket.build({
-  title: "pine lake"
-})
 
-var scoops = Participant.build({
-  name: "Scoops"
-})
+module.exports = {
+  Participant: Participant,
+  Bracket: Bracket,
+  User: User,
+  Game: Game
+};
 
-plm.addPlayers([scoops])
 
-plm.save().then(function() {
-  console.log('saved properly')
-}).catch(function() {
-  console.log("did not save properly")
-})
-scoops.save().then(function() {
-  console.log('saved properly')
-}).catch(function() {
-  console.log("did not save properly")
-})
+
+  
+  // plm.save().then(function() {
+  //   console.log('saved properly')
+  // }).catch(function() {
+  //   console.log("did not save properly")
+  // })
+  // scoops.save().then(function() {
+  //   console.log('saved properly')
+  // }).catch(function() {
+  //   console.log("did not save properly")
+  // })
+
+
+
+
+
+
+// plm.addParticipant([scoops])

@@ -1,15 +1,16 @@
 
   <div ng-controller="BracketController">
-    <div>{{bracketName}}</div>
+    <div ng-repeat="bracket in brackets" ng-click="getParticipants(bracket)">{{bracket.title}}</div>
+
+    <div ng-show="bracketName"><span ng-show="bracketName">Current Bracket Name: <span> {{bracketName}}</div>
     <form ng-show="!bracketName" ng-submit="addBracket()">
-    <input type="text" ng-show="!bracketName" ng-model="data.bracket">
-      <button>add Bracket Name</button>
+      <input type="text" placeholder="Enter Bracket Name" ng-model="data.bracket">
+        <button>Add Bracket Name</button>
     </form>
-    <form ng-submit="addTeam()">
+    <form ng-submit="addParticipant()">
       <input type="text" placeholder="Enter Participant" ng-model="data.team">
       <button>Add me!</button>
-  </form>
-  <div ng-repeat="team in teams">{{team}}</div>
+    </form>
+  <div ng-repeat="team in teams">{{team.name}}</div>
   <button ng-click="saveBracket()" type="button">Create Bracket></button>
-
 
